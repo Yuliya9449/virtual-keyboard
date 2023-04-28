@@ -13,13 +13,16 @@ const cssClasses = {
   ROW: 'row',
   BUTTON: 'btn',
   PARAGRAPH: 'info',
+  BUTTON_FUNC: 'btn_func',
+  BUTTON_WIDE: 'btn_wide',
 };
 
 const TEXT_HEADING = 'Virtual keyboard';
 const TEXT_FOOTER_CREATED = 'The keyboard was created in the operating system windows';
 const TEXT_FOOTER_SWITCH = 'Press AltLeft and ShiftLeft to switch language';
 
-const buttonsIdArr = [];
+const buttonsArr = [];
+let textarea;
 
 class Page {
   // constructor(id, value) {
@@ -74,6 +77,9 @@ class Page {
   createTextarea() {
     this.container = this.createElement('div', cssClasses.CONTAINER);
     this.textarea = this.createElement('textarea', cssClasses.TEXTAREA);
+    // this.textarea.focus();
+    textarea = this.textarea;
+    textarea.setAttribute('autofocus', '');
     this.container.append(this.textarea);
     return this.container;
   }
@@ -87,7 +93,18 @@ class Page {
         this.button = this.createElement('button', cssClasses.BUTTON);
         this.button.textContent = key.value;
         this.button.id = key.id;
-        buttonsIdArr.push(this.button.id);
+
+        if (this.button.id === 'Backspace') {
+          this.button.classList.add(cssClasses.BUTTON_FUNC);
+        }
+
+        if (this.button.id === 'Backspace') {
+          this.button.classList.add(cssClasses.BUTTON_WIDE);
+        }
+
+        this.button.value = key.value;
+
+        buttonsArr.push(this.button);
 
         this.row.append(this.button);
       });
@@ -111,34 +128,4 @@ class Page {
   }
 }
 
-export { Page, buttonsIdArr };
-
-// function createComponent(DATA) {
-//   if (!Array.isArray(DATA)) {
-//     throw TypeError('Keyboard error. DATA array is invalid.');
-//   }
-
-//   const component = document.createElement('div');
-//   const header = document.createElement('header');
-
-//   const title = document.createElement('h1');
-//   title.classList.add(cssClasses.TITLE);
-//   title.innerText = 'Virtual keyboard';
-
-//   header.append(title);
-
-//   component.append(header);
-
-//   const main = document.createElement('main');
-
-//   const wrapper = document.createElement('div');
-//   wrapper.classList.add(cssClasses.WRAPPER);
-
-//   main.append(wrapper);
-
-//   component.after(main);
-
-//   return component;
-// }
-
-// export { createComponent };
+export { Page, buttonsArr, textarea };
