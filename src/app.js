@@ -1,7 +1,6 @@
-// import { createComponent } from './components/page/Page.js';
 // import DATA from './components/Data.js';
-import { Page, buttonsArr, textarea } from './components/Page.js';
-import { toPressKeyHandler } from './components/toPressKeyHandler.js';
+import { Page } from './components/Page.js';
+import toPressKeyHandler from './components/toPressKeyHandler.js';
 
 // DOMContentLoaded //!!!!!!!!
 
@@ -11,4 +10,4 @@ document.body.append(page.createHeader());
 document.body.append(page.createMain());
 document.body.append(page.createFooter());
 
-toPressKeyHandler(buttonsArr, textarea);
+toPressKeyHandler();

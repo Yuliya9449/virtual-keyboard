@@ -22,7 +22,7 @@ const TEXT_FOOTER_CREATED = 'The keyboard was created in the operating system wi
 const TEXT_FOOTER_SWITCH = 'Press AltLeft and ShiftLeft to switch language';
 
 const buttonsArr = [];
-let textarea;
+const myConstants = {};
 
 class Page {
   // constructor(id, value) {
@@ -78,14 +78,17 @@ class Page {
     this.container = this.createElement('div', cssClasses.CONTAINER);
     this.textarea = this.createElement('textarea', cssClasses.TEXTAREA);
     // this.textarea.focus();
-    textarea = this.textarea;
-    textarea.setAttribute('autofocus', '');
+    // textarea = this.textarea;
+    myConstants.textarea = this.textarea;
+    this.textarea.setAttribute('autofocus', '');
     this.container.append(this.textarea);
     return this.container;
   }
 
   createKeyboard(data) {
     this.container = this.createElement('div', cssClasses.CONTAINER);
+
+    myConstants.virtBtnContainer = this.container;
 
     data.forEach((keysArr) => {
       this.row = this.createElement('div', cssClasses.ROW);
@@ -128,4 +131,4 @@ class Page {
   }
 }
 
-export { Page, buttonsArr, textarea };
+export { Page, buttonsArr, myConstants };

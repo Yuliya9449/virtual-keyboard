@@ -1,51 +1,45 @@
-import { buttonsArr, textarea } from './Page.js';
+import { buttonsArr, myConstants } from './Page.js';
 
-function toPressKeyHandler() {
-  buttonsArr.forEach((virtualBtn) => {
-    virtualBtn.addEventListener('click', toClickVirtualBtn);
-  });
-
-  document.addEventListener('keydown', toKeyDown);
-  document.addEventListener('keyup', toKeyup);
-}
+let textarea;
+let virtBtnContainer;
 
 function toClickVirtualBtn(e) {
-  const btn = e.target;
-
-  if (btn.id === 'Backspace') {
-    console.log('Backspace');
-  } else {
-    textarea.value += btn.value;
+  textarea = myConstants.textarea;
+  const btn = e.target.closest('.btn');
+  if (btn) {
+    if (btn.id === 'Backspace') {
+      console.log('Backspace');
+    } else {
+      textarea.value += btn.value;
+    }
   }
+
   textarea.focus();
 }
 
 function toKeyDown(e) {
-  buttonsArr.find((btn) => {
+  buttonsArr.forEach((btn) => {
     if (btn.id === e.code) {
       btn.classList.add('active');
-      // btn.removeEventListener('keydown', toKeyDown);
-      // btn.addEventListener('keyup', () => {
-      //   console.log('000');
-      // });
-      return btn;
     }
   });
 }
 
 function toKeyup(e) {
-  console.log('555');
-  console.log(e);
   buttonsArr.forEach((btn) => {
     if (btn.id === e.code) {
       btn.classList.remove('active');
     }
-  })
-  // const btn = e.target;
-  // console.log(btn);
-  // if (e) {
-  //   btn.classList.remove('active');
-  // }
+  });
 }
 
-export { toPressKeyHandler };
+function toPressKeyHandler() {
+  virtBtnContainer = myConstants.virtBtnContainer;
+
+  virtBtnContainer.addEventListener('click', toClickVirtualBtn);
+
+  document.addEventListener('keydown', toKeyDown);
+  document.addEventListener('keyup', toKeyup);
+}
+
+export default toPressKeyHandler;
