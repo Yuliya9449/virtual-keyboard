@@ -8,7 +8,7 @@ function toClickVirtualBtn(e) {
   const btn = e.target.closest('.btn');
   if (btn) {
     if (btn.id === 'Backspace') {
-      console.log('Backspace');
+      textarea.value = textarea.value.slice(0, -1);
     } else {
       textarea.value += btn.value;
     }
