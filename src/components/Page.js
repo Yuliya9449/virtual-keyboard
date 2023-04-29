@@ -97,11 +97,11 @@ class Page {
         this.button.textContent = key.value;
         this.button.id = key.id;
 
-        if (this.button.id === 'Backspace') {
+        if (this.button.id === 'Backspace' || this.button.id === 'Tab' || this.button.id === 'Delete' || this.button.id === 'CapsLock' || this.button.id === 'Enter' || this.button.id === 'ShiftLeft' || this.button.id === 'ShiftRight' || this.button.id === 'ControlLeft' || this.button.id === 'MetaLeft' || this.button.id === 'AltLeft' || this.button.id === 'AltRight' || this.button.id === 'ArrowUp' || this.button.id === 'ArrowLeft' || this.button.id === 'ArrowDown' || this.button.id === 'ArrowRight' || this.button.id === 'ControlRight') {
           this.button.classList.add(cssClasses.BUTTON_FUNC);
         }
 
-        if (this.button.id === 'Backspace') {
+        if (this.button.id === 'Backspace' || this.button.id === 'Tab' || this.button.id === 'Delete' || this.button.id === 'CapsLock' || this.button.id === 'Enter' || this.button.id === 'ShiftLeft' || this.button.id === 'ShiftRight' || this.button.id === 'Space') {
           this.button.classList.add(cssClasses.BUTTON_WIDE);
         }
 
