@@ -3,6 +3,7 @@ const DATA = [
     {
       id: 'Backquote',
       value: '`',
+      valueRu: 'ё',
     },
     {
       id: 'Digit1',
@@ -65,50 +66,62 @@ const DATA = [
     {
       id: 'KeyQ',
       value: 'q',
+      valueRu: 'й',
     },
     {
       id: 'KeyW',
       value: 'w',
+      valueRu: 'ц',
     },
     {
       id: 'KeyE',
       value: 'e',
+      valueRu: 'у',
     },
     {
       id: 'KeyR',
       value: 'r',
+      valueRu: 'к',
     },
     {
       id: 'KeyT',
       value: 't',
+      valueRu: 'е',
     },
     {
       id: 'KeyY',
       value: 'y',
+      valueRu: 'н',
     },
     {
       id: 'KeyU',
       value: 'u',
+      valueRu: 'г',
     },
     {
       id: 'KeyI',
       value: 'i',
+      valueRu: 'ш',
     },
     {
       id: 'KeyO',
       value: 'o',
+      valueRu: 'щ',
     },
     {
       id: 'KeyP',
       value: 'p',
+      valueRu: 'з',
     },
     {
       id: 'BracketLeft',
       value: '[',
+      valueRu: 'х',
     },
     {
       id: 'BracketRight',
       value: ']',
+      valueRu: 'ъ',
     },
     {
       id: 'Backslash',
@@ -116,7 +129,7 @@ const DATA = [
     },
     {
       id: 'Delete',
-      value: 'Delete',
+      value: 'Del',
     },
   ],
   [
@@ -127,46 +140,57 @@ const DATA = [
     {
       id: 'KeyA',
       value: 'a',
+      valueRu: 'ф',
     },
     {
       id: 'KeyS',
       value: 's',
+      valueRu: 'ы',
     },
     {
       id: 'KeyD',
       value: 'd',
+      valueRu: 'в',
     },
     {
       id: 'KeyF',
       value: 'f',
+      valueRu: 'а',
     },
     {
       id: 'KeyG',
       value: 'g',
+      valueRu: 'п',
     },
     {
       id: 'KeyH',
       value: 'h',
+      valueRu: 'р',
     },
     {
       id: 'KeyJ',
       value: 'j',
+      valueRu: 'о',
     },
     {
       id: 'KeyK',
       value: 'k',
+      valueRu: 'л',
     },
     {
       id: 'KeyL',
       value: 'l',
+      valueRu: 'д',
     },
     {
       id: 'Semicolon',
       value: ';',
+      valueRu: 'ж',
     },
     {
       id: 'Quote',
       value: '\'',
+      valueRu: 'э',
     },
     {
       id: 'Enter',
@@ -181,38 +205,52 @@ const DATA = [
     {
       id: 'KeyZ',
       value: 'z',
+      valueRu: 'я',
     },
     {
       id: 'KeyX',
       value: 'x',
+      valueRu: 'ч',
     },
     {
       id: 'KeyC',
       value: 'c',
+      valueRu: 'с',
     },
     {
       id: 'KeyV',
       value: 'v',
+      valueRu: 'м',
     },
     {
       id: 'KeyB',
       value: 'b',
+      valueRu: 'и',
     },
     {
       id: 'KeyN',
       value: 'n',
+      valueRu: 'т',
     },
     {
       id: 'KeyM',
       value: 'm',
+      valueRu: 'ь',
     },
     {
       id: 'Comma',
       value: ',',
+      valueRu: 'б',
     },
     {
       id: 'Period',
       value: '.',
+      valueRu: 'ю',
+    },
+    {
+      id: 'Slash',
+      value: '/',
+      valueRu: '.',
     },
     {
       id: 'ArrowUp',
@@ -229,8 +267,12 @@ const DATA = [
       value: 'Ctrl',
     },
     {
-      id: 'MetaLeft',
-      value: 'Win',
+      id: 'En',
+      value: 'Eng',
+    },
+    {
+      id: 'Ru',
+      value: 'Rus',
     },
     {
       id: 'AltLeft',

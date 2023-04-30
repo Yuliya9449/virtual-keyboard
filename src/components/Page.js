@@ -15,6 +15,8 @@ const cssClasses = {
   PARAGRAPH: 'info',
   BUTTON_FUNC: 'btn_func',
   BUTTON_WIDE: 'btn_wide',
+  TEXTAREA_CONTAINER: 'textarea-container',
+  BTNS_CONTAINER: 'btns-container',
 };
 
 const TEXT_HEADING = 'Virtual keyboard';
@@ -23,6 +25,8 @@ const TEXT_FOOTER_SWITCH = 'Press AltLeft and ShiftLeft to switch language';
 
 const buttonsArr = [];
 const myConstants = {};
+const language = { language: 'En' };
+// const language = {language: 'Ru'};
 
 class Page {
   // constructor(id, value) {
@@ -50,7 +54,7 @@ class Page {
     this.textarea = this.createTextarea();
     this.wrapper.append(this.textarea);
 
-    this.keyboard = this.createKeyboard(DATA);
+    this.keyboard = this.createKeyboard(DATA, language.language);
     this.wrapper.append(this.keyboard);
 
     this.main.append(this.wrapper);
@@ -75,7 +79,7 @@ class Page {
   }
 
   createTextarea() {
-    this.container = this.createElement('div', cssClasses.CONTAINER);
+    this.container = this.createElement('div', [cssClasses.CONTAINER, cssClasses.TEXTAREA_CONTAINER]);
     this.textarea = this.createElement('textarea', cssClasses.TEXTAREA);
     // this.textarea.focus();
     // textarea = this.textarea;
@@ -85,8 +89,8 @@ class Page {
     return this.container;
   }
 
-  createKeyboard(data) {
-    this.container = this.createElement('div', cssClasses.CONTAINER);
+  createKeyboard(data, lang) {
+    this.container = this.createElement('div', [cssClasses.CONTAINER, cssClasses.BTNS_CONTAINER]);
 
     myConstants.virtBtnContainer = this.container;
 
@@ -94,10 +98,21 @@ class Page {
       this.row = this.createElement('div', cssClasses.ROW);
       keysArr.forEach((key) => {
         this.button = this.createElement('button', cssClasses.BUTTON);
-        this.button.textContent = key.value;
+        if (lang === 'En') {
+          this.button.textContent = key.value;
+        }
+
+        if (lang === 'Ru') {
+          if (key.valueRu) {
+            this.button.textContent = key.valueRu;
+          } else {
+            this.button.textContent = key.value;
+          }
+        }
+
         this.button.id = key.id;
 
-        if (this.button.id === 'Backspace' || this.button.id === 'Tab' || this.button.id === 'Delete' || this.button.id === 'CapsLock' || this.button.id === 'Enter' || this.button.id === 'ShiftLeft' || this.button.id === 'ShiftRight' || this.button.id === 'ControlLeft' || this.button.id === 'MetaLeft' || this.button.id === 'AltLeft' || this.button.id === 'AltRight' || this.button.id === 'ArrowUp' || this.button.id === 'ArrowLeft' || this.button.id === 'ArrowDown' || this.button.id === 'ArrowRight' || this.button.id === 'ControlRight') {
+        if (this.button.id === 'Backspace' || this.button.id === 'Tab' || this.button.id === 'Delete' || this.button.id === 'CapsLock' || this.button.id === 'Enter' || this.button.id === 'ShiftLeft' || this.button.id === 'ShiftRight' || this.button.id === 'ControlLeft' || this.button.id === 'Ru' || this.button.id === 'En' || this.button.id === 'AltLeft' || this.button.id === 'AltRight' || this.button.id === 'ArrowUp' || this.button.id === 'ArrowLeft' || this.button.id === 'ArrowDown' || this.button.id === 'ArrowRight' || this.button.id === 'ControlRight') {
           this.button.classList.add(cssClasses.BUTTON_FUNC);
         }
 
@@ -106,6 +121,7 @@ class Page {
         }
 
         this.button.value = key.value;
+        this.button.valueRu = key.valueRu;
 
         buttonsArr.push(this.button);
 
@@ -131,4 +147,6 @@ class Page {
   }
 }
 
-export { Page, buttonsArr, myConstants };
+export {
+  Page, buttonsArr, myConstants, language, cssClasses,
+};
