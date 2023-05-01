@@ -11,16 +11,34 @@ const btnsFuncObj = {
 
 let textarea;
 let virtBtnContainer;
-let caps = false;
+let virtCaps = false;
+let previousRealCaps = null;
+
+function toCapsLock() {
+  if (!virtCaps) {
+    buttonsArr.forEach((btn) => {
+      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+        btn.textContent = btn.textContent.toUpperCase();
+      }
+    });
+  } else if (virtCaps) {
+    buttonsArr.forEach((btn) => {
+      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+        btn.textContent = btn.textContent.toLowerCase();
+      }
+    });
+  }
+  virtCaps = !virtCaps;
+}
 
 function toMouseDownVirtualBtn(e) {
   textarea = myConstants.textarea;
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
 
   function switchLanguageWithCaps() {
-    buttonsArr.forEach((btn) => {
-      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-        btn.textContent = btn.textContent.toUpperCase();
+    buttonsArr.forEach((button) => {
+      if (!button.classList.contains(cssClasses.BUTTON_FUNC)) {
+        button.textContent = button.textContent.toUpperCase();
       }
     });
   }
@@ -32,7 +50,7 @@ function toMouseDownVirtualBtn(e) {
         buttonsArr[i].textContent = buttonsArr[i].valueRu;
       }
     }
-    if (caps) {
+    if (virtCaps) {
       switchLanguageWithCaps();
     }
   }
@@ -42,26 +60,9 @@ function toMouseDownVirtualBtn(e) {
     for (let i = 0; i < buttonsArr.length; i += 1) {
       buttonsArr[i].textContent = buttonsArr[i].value;
     }
-    if (caps) {
+    if (virtCaps) {
       switchLanguageWithCaps();
     }
-  }
-
-  function toCapsLock() {
-    if (!caps) {
-      buttonsArr.forEach((btn) => {
-        if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-          btn.textContent = btn.textContent.toUpperCase();
-        }
-      });
-    } else if (caps) {
-      buttonsArr.forEach((btn) => {
-        if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-          btn.textContent = btn.textContent.toLowerCase();
-        }
-      });
-    }
-    caps = !caps;
   }
 
   if (btn) {
@@ -99,7 +100,15 @@ function toMouseUpVirtualBtn(e) {
 }
 
 function toKeyDown(e) {
+  const currentRealCaps = e.getModifierState('CapsLock');
+  if (previousRealCaps === null) {
+    previousRealCaps = currentRealCaps;
+  }
+
+  console.log(currentRealCaps);
+
   textarea = myConstants.textarea;
+
   if (!e.defaultPrevented) {
     buttonsArr.forEach(() => {
       if (!Object.values(btnsFuncObj).includes(e.code)) {
@@ -118,12 +127,20 @@ function toKeyDown(e) {
       btn.classList.add(cssClasses.ACTIVE);
     }
   });
+
+  if (!previousRealCaps && currentRealCaps) {
+    toCapsLock();
+    previousRealCaps = !previousRealCaps;
+  } else if (previousRealCaps && !currentRealCaps) {
+    toCapsLock();
+    previousRealCaps = !previousRealCaps;
+  }
 }
 
 function toKeyup(e) {
   buttonsArr.forEach((btn) => {
     if (btn.id === e.code) {
-      btn.classList.remove('active');
+      btn.classList.remove(cssClasses.ACTIVE);
     }
   });
 }
