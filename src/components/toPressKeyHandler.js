@@ -7,7 +7,7 @@ const btnsFuncArr = ['Backspace'];
 let textarea;
 let virtBtnContainer;
 
-function toClickVirtualBtn(e) {
+function toMouseDownVirtualBtn(e) {
   textarea = myConstants.textarea;
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
 
@@ -41,6 +41,15 @@ function toClickVirtualBtn(e) {
     } else {
       textarea.value += btn.textContent;
     }
+    btn.classList.add(cssClasses.ACTIVE);
+  }
+}
+
+function toMouseUpVirtualBtn(e) {
+  const btn = e.target.closest(`.${cssClasses.BUTTON}`);
+
+  if (btn) {
+    btn.classList.remove(cssClasses.ACTIVE);
   }
 
   textarea.focus();
@@ -61,6 +70,10 @@ function toKeyDown(e) {
       textarea.value += btn.textContent;
       btn.classList.add('active');
     }
+
+    if (btn.id === e.code && btnsFuncArr.includes(e.code)) {
+      btn.classList.add('active');
+    }
   });
 }
 
@@ -75,7 +88,8 @@ function toKeyup(e) {
 function toPressKeyHandler() {
   virtBtnContainer = myConstants.virtBtnContainer;
 
-  virtBtnContainer.addEventListener('click', toClickVirtualBtn);
+  virtBtnContainer.addEventListener('mousedown', toMouseDownVirtualBtn);
+  virtBtnContainer.addEventListener('mouseup', toMouseUpVirtualBtn);
 
   document.addEventListener('keydown', toKeyDown);
   document.addEventListener('keyup', toKeyup);

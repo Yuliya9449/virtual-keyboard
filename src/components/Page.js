@@ -12,6 +12,7 @@ const cssClasses = {
   TEXTAREA: 'textarea',
   ROW: 'row',
   BUTTON: 'btn',
+  ACTIVE: 'active',
   PARAGRAPH: 'info',
   BUTTON_FUNC: 'btn_func',
   BUTTON_WIDE: 'btn_wide',
