@@ -2,6 +2,8 @@ import {
   buttonsArr, myConstants, language, cssClasses,
 } from './Page.js';
 
+const btnsFuncArr = ['Backspace'];
+
 let textarea;
 let virtBtnContainer;
 
@@ -46,9 +48,16 @@ function toClickVirtualBtn(e) {
 
 function toKeyDown(e) {
   textarea = myConstants.textarea;
+  if (!e.defaultPrevented) {
+    buttonsArr.forEach(() => {
+      if (!btnsFuncArr.includes(e.code)) {
+        e.preventDefault();
+      }
+    });
+  }
+
   buttonsArr.forEach((btn) => {
-    e.preventDefault();
-    if (btn.id === e.code) {
+    if (btn.id === e.code && !btnsFuncArr.includes(e.code)) {
       textarea.value += btn.textContent;
       btn.classList.add('active');
     }
