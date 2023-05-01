@@ -19,29 +19,33 @@ let virtBtnContainer;
 let virtCaps = false;
 let previousRealCaps = null;
 
+function toUpperCaseVirtBtns() {
+  buttonsArr.forEach((btn) => {
+    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+      btn.textContent = btn.textContent.toUpperCase();
+    }
+  });
+}
+
+function toLowerCaseVirtBtns() {
+  buttonsArr.forEach((btn) => {
+    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+      btn.textContent = btn.textContent.toLowerCase();
+    }
+  });
+}
+
 function toCapsLock() {
   if (!virtCaps) {
-    buttonsArr.forEach((btn) => {
-      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-        btn.textContent = btn.textContent.toUpperCase();
-      }
-    });
+    toUpperCaseVirtBtns();
   } else if (virtCaps) {
-    buttonsArr.forEach((btn) => {
-      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-        btn.textContent = btn.textContent.toLowerCase();
-      }
-    });
+    toLowerCaseVirtBtns();
   }
   virtCaps = !virtCaps;
 }
 
 function switchLanguageWithCaps() {
-  buttonsArr.forEach((button) => {
-    if (!button.classList.contains(cssClasses.BUTTON_FUNC)) {
-      button.textContent = button.textContent.toUpperCase();
-    }
-  });
+  toUpperCaseVirtBtns();
 }
 
 function switchLanguageRu() {
@@ -66,22 +70,6 @@ function switchLanguageEn() {
     switchLanguageWithCaps();
   }
   localStorage.setItem('lang', language.language);
-}
-
-function toUpperCaseVirtBtns() {
-  buttonsArr.forEach((btn) => {
-    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-      btn.textContent = btn.textContent.toUpperCase();
-    }
-  });
-}
-
-function toLowerCaseVirtBtns() {
-  buttonsArr.forEach((btn) => {
-    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-      btn.textContent = btn.textContent.toLowerCase();
-    }
-  });
 }
 
 function toShift() {
@@ -135,14 +123,15 @@ function toMouseUpVirtualBtn(e) {
 
   if (btn) {
     btn.classList.remove(cssClasses.ACTIVE);
-  }
-  // Shift
-  if (btn.id === btnsFuncObj.SHIFT_LEFT || btn.id === btnsFuncObj.SHIFT_RIGHT) {
-    console.log('222');
-    if (!virtCaps) {
-      toLowerCaseVirtBtns();
-    } else {
-      toUpperCaseVirtBtns();
+
+    // Shift
+    if (btn.id === btnsFuncObj.SHIFT_LEFT || btn.id === btnsFuncObj.SHIFT_RIGHT) {
+      console.log('222');
+      if (!virtCaps) {
+        toLowerCaseVirtBtns();
+      } else {
+        toUpperCaseVirtBtns();
+      }
     }
   }
 
