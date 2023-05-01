@@ -280,7 +280,7 @@ const DATA = [
     },
     {
       id: 'Space',
-      value: '',
+      value: ' ',
     },
     {
       id: 'AltRight',
