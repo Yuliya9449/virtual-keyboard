@@ -2,14 +2,28 @@ import {
   buttonsArr, myConstants, language, cssClasses,
 } from './Page.js';
 
-const btnsFuncArr = ['Backspace'];
+const btnsFuncObj = {
+  BACKSPASE: 'Backspace',
+  TAB: 'Tab',
+  ENTER: 'Enter',
+  CAPSLOCK: 'CapsLock',
+};
 
 let textarea;
 let virtBtnContainer;
+let caps = false;
 
 function toMouseDownVirtualBtn(e) {
   textarea = myConstants.textarea;
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
+
+  function switchLanguageWithCaps() {
+    buttonsArr.forEach((btn) => {
+      if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+        btn.textContent = btn.textContent.toUpperCase();
+      }
+    });
+  }
 
   function switchLanguageRu() {
     language.language = 'Ru';
@@ -18,6 +32,9 @@ function toMouseDownVirtualBtn(e) {
         buttonsArr[i].textContent = buttonsArr[i].valueRu;
       }
     }
+    if (caps) {
+      switchLanguageWithCaps();
+    }
   }
 
   function switchLanguageEn() {
@@ -25,11 +42,37 @@ function toMouseDownVirtualBtn(e) {
     for (let i = 0; i < buttonsArr.length; i += 1) {
       buttonsArr[i].textContent = buttonsArr[i].value;
     }
+    if (caps) {
+      switchLanguageWithCaps();
+    }
+  }
+
+  function toCapsLock() {
+    if (!caps) {
+      buttonsArr.forEach((btn) => {
+        if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+          btn.textContent = btn.textContent.toUpperCase();
+        }
+      });
+    } else if (caps) {
+      buttonsArr.forEach((btn) => {
+        if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+          btn.textContent = btn.textContent.toLowerCase();
+        }
+      });
+    }
+    caps = !caps;
   }
 
   if (btn) {
-    if (btn.id === 'Backspace') {
+    if (btn.id === btnsFuncObj.BACKSPASE) {
       textarea.value = textarea.value.slice(0, -1);
+    } else if (btn.id === btnsFuncObj.TAB) {
+      textarea.value += '\t';
+    } else if (btn.id === btnsFuncObj.ENTER) {
+      textarea.value += '\n';
+    } else if (btn.id === btnsFuncObj.CAPSLOCK) {
+      toCapsLock();
     } else if (btn.id === 'Ru' && language.language === 'En') {
       switchLanguageRu();
     } else if (btn.id === 'Ru' && language.language === 'Ru') {
@@ -59,20 +102,20 @@ function toKeyDown(e) {
   textarea = myConstants.textarea;
   if (!e.defaultPrevented) {
     buttonsArr.forEach(() => {
-      if (!btnsFuncArr.includes(e.code)) {
+      if (!Object.values(btnsFuncObj).includes(e.code)) {
         e.preventDefault();
       }
     });
   }
 
   buttonsArr.forEach((btn) => {
-    if (btn.id === e.code && !btnsFuncArr.includes(e.code)) {
+    if (btn.id === e.code && !Object.values(btnsFuncObj).includes(e.code)) {
       textarea.value += btn.textContent;
-      btn.classList.add('active');
+      btn.classList.add(cssClasses.ACTIVE);
     }
 
-    if (btn.id === e.code && btnsFuncArr.includes(e.code)) {
-      btn.classList.add('active');
+    if (btn.id === e.code && Object.values(btnsFuncObj).includes(e.code)) {
+      btn.classList.add(cssClasses.ACTIVE);
     }
   });
 }
