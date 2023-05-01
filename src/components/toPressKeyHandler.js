@@ -1,35 +1,39 @@
 import {
-  Page, buttonsArr, myConstants, language, cssClasses,
+  buttonsArr, myConstants, language, cssClasses,
 } from './Page.js';
-import DATA from './Data.js';
 
 let textarea;
 let virtBtnContainer;
 
 function toClickVirtualBtn(e) {
   textarea = myConstants.textarea;
-  const btn = e.target.closest('.btn');
+  const btn = e.target.closest(`.${cssClasses.BUTTON}`);
 
-  function switchLanguage() {
-    buttonsArr.length = 0;
-    virtBtnContainer.removeEventListener('click', toClickVirtualBtn);
-    const newKeyboard = new Page().createKeyboard(DATA, language.language);
-    document.querySelector(`.${cssClasses.BTNS_CONTAINER}`).replaceWith(newKeyboard);
-    newKeyboard.addEventListener('click', toClickVirtualBtn);
+  function switchLanguageRu() {
+    language.language = 'Ru';
+    for (let i = 0; i < buttonsArr.length; i += 1) {
+      if (buttonsArr[i].valueRu) {
+        buttonsArr[i].textContent = buttonsArr[i].valueRu;
+      }
+    }
+  }
+
+  function switchLanguageEn() {
+    language.language = 'En';
+    for (let i = 0; i < buttonsArr.length; i += 1) {
+      buttonsArr[i].textContent = buttonsArr[i].value;
+    }
   }
 
   if (btn) {
     if (btn.id === 'Backspace') {
       textarea.value = textarea.value.slice(0, -1);
     } else if (btn.id === 'Ru' && language.language === 'En') {
-      language.language = 'Ru';
-      switchLanguage();
+      switchLanguageRu();
     } else if (btn.id === 'Ru' && language.language === 'Ru') {
-      // textarea.focus();
       textarea.value += '';
     } else if (btn.id === 'En' && language.language === 'Ru') {
-      language.language = 'En';
-      switchLanguage();
+      switchLanguageEn();
     } else if (btn.id === 'En' && language.language === 'En') {
       textarea.value += '';
     } else {
