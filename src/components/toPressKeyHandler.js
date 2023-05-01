@@ -7,6 +7,11 @@ const btnsFuncObj = {
   TAB: 'Tab',
   ENTER: 'Enter',
   CAPSLOCK: 'CapsLock',
+  SHIFT_LEFT: 'ShiftLeft',
+  SHIFT_RIGHT: 'ShiftRight',
+  ALT_LEFT: 'AltLeft',
+  ALT_RIGHT: 'AltRight',
+
 };
 
 let textarea;
@@ -31,51 +36,81 @@ function toCapsLock() {
   virtCaps = !virtCaps;
 }
 
+function switchLanguageWithCaps() {
+  buttonsArr.forEach((button) => {
+    if (!button.classList.contains(cssClasses.BUTTON_FUNC)) {
+      button.textContent = button.textContent.toUpperCase();
+    }
+  });
+}
+
+function switchLanguageRu() {
+  language.language = 'Ru';
+  for (let i = 0; i < buttonsArr.length; i += 1) {
+    if (buttonsArr[i].valueRu) {
+      buttonsArr[i].textContent = buttonsArr[i].valueRu;
+    }
+  }
+  if (virtCaps) {
+    switchLanguageWithCaps();
+  }
+  localStorage.setItem('lang', language.language);
+}
+
+function switchLanguageEn() {
+  language.language = 'En';
+  for (let i = 0; i < buttonsArr.length; i += 1) {
+    buttonsArr[i].textContent = buttonsArr[i].value;
+  }
+  if (virtCaps) {
+    switchLanguageWithCaps();
+  }
+  localStorage.setItem('lang', language.language);
+}
+
+function toUpperCaseVirtBtns() {
+  buttonsArr.forEach((btn) => {
+    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+      btn.textContent = btn.textContent.toUpperCase();
+    }
+  });
+}
+
+function toLowerCaseVirtBtns() {
+  buttonsArr.forEach((btn) => {
+    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
+      btn.textContent = btn.textContent.toLowerCase();
+    }
+  });
+}
+
+function toShift() {
+  console.log('111');
+  if (!virtCaps) {
+    toUpperCaseVirtBtns();
+  } else {
+    toLowerCaseVirtBtns();
+  }
+}
+
 function toMouseDownVirtualBtn(e) {
   textarea = myConstants.textarea;
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
 
-  function switchLanguageWithCaps() {
-    buttonsArr.forEach((button) => {
-      if (!button.classList.contains(cssClasses.BUTTON_FUNC)) {
-        button.textContent = button.textContent.toUpperCase();
-      }
-    });
-  }
-
-  function switchLanguageRu() {
-    language.language = 'Ru';
-    for (let i = 0; i < buttonsArr.length; i += 1) {
-      if (buttonsArr[i].valueRu) {
-        buttonsArr[i].textContent = buttonsArr[i].valueRu;
-      }
-    }
-    if (virtCaps) {
-      switchLanguageWithCaps();
-    }
-    localStorage.setItem('lang', language.language);
-  }
-
-  function switchLanguageEn() {
-    language.language = 'En';
-    for (let i = 0; i < buttonsArr.length; i += 1) {
-      buttonsArr[i].textContent = buttonsArr[i].value;
-    }
-    if (virtCaps) {
-      switchLanguageWithCaps();
-    }
-    localStorage.setItem('lang', language.language);
-  }
-
   if (btn) {
+    // Backspace
     if (btn.id === btnsFuncObj.BACKSPASE) {
       textarea.value = textarea.value.slice(0, -1);
+      // Tab
     } else if (btn.id === btnsFuncObj.TAB) {
       textarea.value += '\t';
+      // Enter
     } else if (btn.id === btnsFuncObj.ENTER) {
       textarea.value += '\n';
+      // Caps lock
     } else if (btn.id === btnsFuncObj.CAPSLOCK) {
       toCapsLock();
+      // language
     } else if (btn.id === 'Ru' && language.language === 'En') {
       switchLanguageRu();
     } else if (btn.id === 'Ru' && language.language === 'Ru') {
@@ -84,6 +119,10 @@ function toMouseDownVirtualBtn(e) {
       switchLanguageEn();
     } else if (btn.id === 'En' && language.language === 'En') {
       textarea.value += '';
+      // Shift
+    } else if (btn.id === btnsFuncObj.SHIFT_LEFT || btn.id === btnsFuncObj.SHIFT_RIGHT) {
+      toShift();
+      // rest
     } else {
       textarea.value += btn.textContent;
     }
@@ -97,6 +136,15 @@ function toMouseUpVirtualBtn(e) {
   if (btn) {
     btn.classList.remove(cssClasses.ACTIVE);
   }
+  // Shift
+  if (btn.id === btnsFuncObj.SHIFT_LEFT || btn.id === btnsFuncObj.SHIFT_RIGHT) {
+    console.log('222');
+    if (!virtCaps) {
+      toLowerCaseVirtBtns();
+    } else {
+      toUpperCaseVirtBtns();
+    }
+  }
 
   textarea.focus();
 }
@@ -108,8 +156,6 @@ function toKeyDown(e) {
   if (previousRealCaps === null) {
     previousRealCaps = currentRealCaps;
   }
-
-  console.log(currentRealCaps);
 
   buttonsArr.forEach((btn) => {
     if (btn.id === e.code && !Object.values(btnsFuncObj).includes(e.code)) {
