@@ -11,7 +11,9 @@ const btnsFuncObj = {
   SHIFT_RIGHT: 'ShiftRight',
   ALT_LEFT: 'AltLeft',
   ALT_RIGHT: 'AltRight',
-
+  DEL: 'Delete',
+  CTRL_LEFT: 'ControlLeft',
+  CTRL_RIGHT: 'ControlRight',
 };
 
 let textarea;
@@ -73,7 +75,6 @@ function switchLanguageEn() {
 }
 
 function toShift() {
-  console.log('111');
   if (!virtCaps) {
     toUpperCaseVirtBtns();
   } else {
@@ -89,7 +90,13 @@ function toMouseDownVirtualBtn(e) {
     // Backspace
     if (btn.id === btnsFuncObj.BACKSPASE) {
       textarea.value = textarea.value.slice(0, -1);
-      // Tab
+      // Del
+    } else if (btn.id === btnsFuncObj.DEL) {
+      textarea.value = textarea.value.slice(1);
+    } else if (btn.id === btnsFuncObj.ALT_LEFT || btn.id === btnsFuncObj.ALT_RIGHT) {
+      textarea.value += '';
+    } else if (btn.id === btnsFuncObj.CTRL_LEFT || btn.id === btnsFuncObj.CTRL_RIGHT) {
+      textarea.value += '';
     } else if (btn.id === btnsFuncObj.TAB) {
       textarea.value += '\t';
       // Enter
@@ -126,7 +133,6 @@ function toMouseUpVirtualBtn(e) {
 
     // Shift
     if (btn.id === btnsFuncObj.SHIFT_LEFT || btn.id === btnsFuncObj.SHIFT_RIGHT) {
-      console.log('222');
       if (!virtCaps) {
         toLowerCaseVirtBtns();
       } else {
