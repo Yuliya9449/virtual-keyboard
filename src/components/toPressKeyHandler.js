@@ -20,19 +20,19 @@ let virtCaps = false;
 let previousRealCaps = null;
 
 function toUpperCaseVirtBtns() {
-  buttonsArr.forEach((btn) => {
-    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-      btn.textContent = btn.textContent.toUpperCase();
+  for (let i = 0; i < buttonsArr.length; i += 1) {
+    if (!buttonsArr[i].classList.contains(cssClasses.BUTTON_FUNC)) {
+      buttonsArr[i].textContent = buttonsArr[i].textContent.toUpperCase();
     }
-  });
+  }
 }
 
 function toLowerCaseVirtBtns() {
-  buttonsArr.forEach((btn) => {
-    if (!btn.classList.contains(cssClasses.BUTTON_FUNC)) {
-      btn.textContent = btn.textContent.toLowerCase();
+  for (let i = 0; i < buttonsArr.length; i += 1) {
+    if (!buttonsArr[i].classList.contains(cssClasses.BUTTON_FUNC)) {
+      buttonsArr[i].textContent = buttonsArr[i].textContent.toLowerCase();
     }
-  });
+  }
 }
 
 function toCapsLock() {
