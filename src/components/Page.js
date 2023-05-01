@@ -76,6 +76,7 @@ class Page {
   createTextarea() {
     this.container = this.createElement('div', [cssClasses.CONTAINER, cssClasses.TEXTAREA_CONTAINER]);
     this.textarea = this.createElement('textarea', cssClasses.TEXTAREA);
+    this.textarea.setAttribute('rows', '10');
     myConstants.textarea = this.textarea;
     this.textarea.setAttribute('autofocus', '');
     this.container.append(this.textarea);
