@@ -22,19 +22,13 @@ const cssClasses = {
 
 const TEXT_HEADING = 'Virtual keyboard';
 const TEXT_FOOTER_CREATED = 'The keyboard was created in the operating system windows';
-const TEXT_FOOTER_SWITCH = 'Press AltLeft and ShiftLeft to switch language';
+const TEXT_FOOTER_SWITCH = 'Press keys on virtual keyboard to switch language';
 
 const buttonsArr = [];
 const myConstants = {};
 const language = { language: localStorage.getItem('lang') || 'En' };
-// const language = {language: 'Ru'};
 
 class Page {
-  // constructor(id, value) {
-  //   this.id = id;
-  //   this.value = value;
-  // }
-
   createHeader() {
     this.header = this.createElement('header');
     this.wrapper = this.createElement('div', cssClasses.WRAPPER);
@@ -82,8 +76,6 @@ class Page {
   createTextarea() {
     this.container = this.createElement('div', [cssClasses.CONTAINER, cssClasses.TEXTAREA_CONTAINER]);
     this.textarea = this.createElement('textarea', cssClasses.TEXTAREA);
-    // this.textarea.focus();
-    // textarea = this.textarea;
     myConstants.textarea = this.textarea;
     this.textarea.setAttribute('autofocus', '');
     this.container.append(this.textarea);

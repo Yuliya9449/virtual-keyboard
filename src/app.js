@@ -1,8 +1,5 @@
-// import DATA from './components/Data.js';
 import { Page } from './components/Page.js';
 import toPressKeyHandler from './components/toPressKeyHandler.js';
-
-// DOMContentLoaded //!!!!!!!!
 
 const page = new Page();
 

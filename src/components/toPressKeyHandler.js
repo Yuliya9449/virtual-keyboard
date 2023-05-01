@@ -82,6 +82,7 @@ function toShift() {
   }
 }
 
+// virtual keyboard
 function toMouseDownVirtualBtn(e) {
   textarea = myConstants.textarea;
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
@@ -93,10 +94,13 @@ function toMouseDownVirtualBtn(e) {
       // Del
     } else if (btn.id === btnsFuncObj.DEL) {
       textarea.value = textarea.value.slice(1);
+      // Alts
     } else if (btn.id === btnsFuncObj.ALT_LEFT || btn.id === btnsFuncObj.ALT_RIGHT) {
       textarea.value += '';
+      // Ctrls
     } else if (btn.id === btnsFuncObj.CTRL_LEFT || btn.id === btnsFuncObj.CTRL_RIGHT) {
       textarea.value += '';
+      // Tab
     } else if (btn.id === btnsFuncObj.TAB) {
       textarea.value += '\t';
       // Enter
@@ -125,6 +129,7 @@ function toMouseDownVirtualBtn(e) {
   }
 }
 
+// virtual keyboard
 function toMouseUpVirtualBtn(e) {
   const btn = e.target.closest(`.${cssClasses.BUTTON}`);
 
@@ -144,6 +149,7 @@ function toMouseUpVirtualBtn(e) {
   textarea.focus();
 }
 
+// Real keyboard
 function toKeyDown(e) {
   const currentRealCaps = e.getModifierState('CapsLock');
   textarea = myConstants.textarea;
@@ -173,6 +179,7 @@ function toKeyDown(e) {
   }
 }
 
+// Real keyboard
 function toKeyup(e) {
   buttonsArr.forEach((btn) => {
     if (btn.id === e.code) {
@@ -181,6 +188,7 @@ function toKeyup(e) {
   });
 }
 
+// main function
 function toPressKeyHandler() {
   virtBtnContainer = myConstants.virtBtnContainer;
 

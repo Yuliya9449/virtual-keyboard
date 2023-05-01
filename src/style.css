@@ -65,7 +65,6 @@ body {
   max-width: 95px;
 }
 
-/* .btn:active, */
 .btn.active {
   background-color: #aaa;
   box-shadow: 0px 1px 3px 0px;
@@ -79,10 +78,6 @@ body {
 .btn_wide {
   flex-grow: 1;
 }
-
-/* .symb {
-  font-size: 18px;
-} */
 
 .info {
   text-align: center;
