@@ -53,6 +53,7 @@ function toMouseDownVirtualBtn(e) {
     if (virtCaps) {
       switchLanguageWithCaps();
     }
+    localStorage.setItem('lang', language.language);
   }
 
   function switchLanguageEn() {
@@ -63,6 +64,7 @@ function toMouseDownVirtualBtn(e) {
     if (virtCaps) {
       switchLanguageWithCaps();
     }
+    localStorage.setItem('lang', language.language);
   }
 
   if (btn) {
@@ -101,24 +103,17 @@ function toMouseUpVirtualBtn(e) {
 
 function toKeyDown(e) {
   const currentRealCaps = e.getModifierState('CapsLock');
+  textarea = myConstants.textarea;
+
   if (previousRealCaps === null) {
     previousRealCaps = currentRealCaps;
   }
 
   console.log(currentRealCaps);
 
-  textarea = myConstants.textarea;
-
-  if (!e.defaultPrevented) {
-    buttonsArr.forEach(() => {
-      if (!Object.values(btnsFuncObj).includes(e.code)) {
-        e.preventDefault();
-      }
-    });
-  }
-
   buttonsArr.forEach((btn) => {
     if (btn.id === e.code && !Object.values(btnsFuncObj).includes(e.code)) {
+      e.preventDefault();
       textarea.value += btn.textContent;
       btn.classList.add(cssClasses.ACTIVE);
     }

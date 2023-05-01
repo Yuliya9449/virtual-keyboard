@@ -26,7 +26,7 @@ const TEXT_FOOTER_SWITCH = 'Press AltLeft and ShiftLeft to switch language';
 
 const buttonsArr = [];
 const myConstants = {};
-const language = { language: 'En' };
+const language = { language: localStorage.getItem('lang') || 'En' };
 // const language = {language: 'Ru'};
 
 class Page {
